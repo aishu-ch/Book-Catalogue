@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+console.log(process.env)
 var Airtable = require("airtable");
 var base = new Airtable({
-  apiKey:
-    "pats4X3hVFQG5nvcS.b3b0000259bdce41c53220486a2d912397c9eec11d06f7e9fb40f569a42ca559",
-}).base("appD3LdXzSXs2BCPY");
+  apiKey:process.env.REACT_APP_AIRTABLE_APIKEY,
+}).base(process.env.REACT_APP_AIRTABLE_BASEID);
 
 const handleClick = (title, bookId) => (e) => {
   // console.log(e.target.name)
@@ -15,7 +15,7 @@ const handleClick = (title, bookId) => (e) => {
     .select({
       filterByFormula: `{Book ID}="${bookId}"`,
     })
-    .firstPage((err, records) => {
+    .firstPage((records) => {
       if (records.length !== 0) {
         records.forEach((record) => {
           console.log("Retrieved", record.get("Book Name"));
@@ -68,7 +68,7 @@ const handleClick = (title, bookId) => (e) => {
 
 export default function BookStatus() {
   const { bookId } = useParams();
-  console.log(bookId);
+  // console.log(bookId);
 
   const bookNameUrl = `https://openlibrary.org/works/${bookId}.json`;
 
@@ -91,9 +91,11 @@ export default function BookStatus() {
   return bookData ? (
     <>
       <div>
+        <h2>Book Description</h2>
+
         <button
           name="Read"
-          className="status"
+          className="read status button"
           onClick={handleClick(bookData.title, bookId)}
         >
           Read
@@ -102,7 +104,7 @@ export default function BookStatus() {
       <div>
         <button
           name="To Read"
-          className="status"
+          className="status button"
           onClick={handleClick(bookData.title, bookId)}
         >
           To Read
@@ -111,7 +113,7 @@ export default function BookStatus() {
       <div>
         <button
           name="Currently Reading"
-          className="status"
+          className="status button"
           onClick={handleClick(bookData.title, bookId)}
         >
           Currently Reading

@@ -25,7 +25,7 @@ export default function SearchBar(props) {
           placeholder="Search for your book here"
           onChange={handleChange}
         />
-        <button className="submit" type="submit" value="Search">
+        <button className="submit button" type="submit" value="Search">
           Search
         </button>
       </form>

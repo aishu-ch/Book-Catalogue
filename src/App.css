@@ -1,38 +1,65 @@
 .App {
+  font-family: sans-serif;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background: rgb(235, 205, 149);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 100vw;
+  height: 50px;
+  padding: 0 20px;
+  background: black;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-item {
+  padding-right: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav a {
+  text-decoration: none;
+  color: rgb(235, 205, 149);
+  font-weight: bold;
+}
+
+form {
+  text-align: center;
+  margin: 10px;
+}
+
+.search-term,
+.submit {
+  padding: 10px;
+  margin: 0 5px;
+  margin-bottom: 30px;
+}
+
+.button {
+  color: rgb(235, 205, 149);
+  background: black;
+  font-weight: 700;
+}
+
+.bookList {
+  text-align: center;
+  font-size: x-small;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.bookListItem a {
+  color: black;
+}
+
+.status {
+  margin: 5px;
+}
+
+.read {
+  margin-top: 10px;
 }

@@ -7,7 +7,7 @@ const[bookName, setBookName] = useState("")
 const[bookData, setBookData] = useState("")
 
 useEffect(() => {
-    const openLibraryUrl = `https://openlibrary.org/search.json?q=${bookName}&limit=6&language=eng`
+    const openLibraryUrl = `https://openlibrary.org/search.json?q=${bookName}&limit=12&language=eng`
 
     const makeApiCall = () => {
       console.log(openLibraryUrl)
