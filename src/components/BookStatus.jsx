@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
-console.log(process.env)
-var Airtable = require("airtable");
-var base = new Airtable({
-  apiKey:process.env.REACT_APP_AIRTABLE_APIKEY,
+// console.log(process.env);
+const Airtable = require("airtable");
+const base = new Airtable({
+  apiKey: process.env.REACT_APP_AIRTABLE_APIKEY,
 }).base(process.env.REACT_APP_AIRTABLE_BASEID);
 
-const handleClick = (title, bookId) => (e) => {
+
+const handleClick = (title, bookId, history) => (e) => {
   // console.log(e.target.name)
   // console.log(title)
 
@@ -15,7 +16,7 @@ const handleClick = (title, bookId) => (e) => {
     .select({
       filterByFormula: `{Book ID}="${bookId}"`,
     })
-    .firstPage((records) => {
+    .firstPage((err, records) => {
       if (records.length !== 0) {
         records.forEach((record) => {
           console.log("Retrieved", record.get("Book Name"));
@@ -63,12 +64,16 @@ const handleClick = (title, bookId) => (e) => {
           }
         );
       }
-    });
+    },
+    setTimeout(() => {
+      history.push("/mylist")
+    }, 1000));
 };
 
 export default function BookStatus() {
   const { bookId } = useParams();
   // console.log(bookId);
+  const history = useHistory()
 
   const bookNameUrl = `https://openlibrary.org/works/${bookId}.json`;
 
@@ -96,7 +101,7 @@ export default function BookStatus() {
         <button
           name="Read"
           className="read status button"
-          onClick={handleClick(bookData.title, bookId)}
+          onClick={handleClick(bookData.title, bookId, history)}
         >
           Read
         </button>
@@ -105,7 +110,7 @@ export default function BookStatus() {
         <button
           name="To Read"
           className="status button"
-          onClick={handleClick(bookData.title, bookId)}
+          onClick={handleClick(bookData.title, bookId, history)}
         >
           To Read
         </button>
@@ -114,8 +119,9 @@ export default function BookStatus() {
         <button
           name="Currently Reading"
           className="status button"
-          onClick={handleClick(bookData.title, bookId)}
+          onClick={handleClick(bookData.title, bookId, history)}
         >
+
           Currently Reading
         </button>
       </div>

@@ -5,6 +5,7 @@
 
 body {
   background: rgb(235, 205, 149);
+  width: 100vw;
 }
 
 .nav {
@@ -62,4 +63,43 @@ form {
 
 .read {
   margin-top: 10px;
+}
+
+.status a {
+  color: rgb(235, 205, 149);
+  background: black;
+  font-weight: 700;
+  font-size: larger;
+  text-decoration: none;
+}
+
+table {
+  font-size: larger;
+  display: grid;
+  align-items: center;
+  width: 40vw;
+  margin: 10vh auto;
+}
+
+tr {
+  display: grid;
+  grid-template-rows: 80px;
+  grid-template-columns: repeat(3, 250px);
+  flex-direction: column;
+  grid-auto-flow: row;
+  background: black;
+  color: rgb(235, 205, 149);
+}
+
+th {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  margin-top: 20px;
+}
+
+
+.delete {
+  background-color: red;
+  color: rgb(235, 205, 149);
+  font-weight: 600;
 }

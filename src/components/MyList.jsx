@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import TableData from "./TableData";
 
 var Airtable = require("airtable");
 var base = new Airtable({ apiKey: process.env.REACT_APP_AIRTABLE_APIKEY }).base(
@@ -11,17 +12,16 @@ export default function MyList() {
   useEffect(() => {
     base("books")
       .select({
-        // Selecting the first 10 records in Grid view:
-        maxRecords: 10,
+        // Selecting the records in Grid view:
         view: "Grid view",
       })
       .eachPage(
         function page(records, fetchNextPage) {
           // This function (`page`) will get called for each page of records.
 
-          records.forEach(function (record) {
-            console.log("Retrieved", record);
-          });
+          // records.forEach(function (record) {
+          //   console.log("Retrieved", record);
+          // });
 
           // To fetch the next page of records, call `fetchNextPage`.
           // If there are more records, `page` will get called again.
@@ -38,12 +38,9 @@ export default function MyList() {
       );
   }, []);
 
-  const deleteRecord = () => {
-
-  }
 
   return (
-    <>
+    <div className="table">
       <table>
         <thead>
           <tr>
@@ -53,18 +50,9 @@ export default function MyList() {
           </tr>
         </thead>
         <tbody>
-          {books.map((book) => {
-            return (
-              <tr key={book.fields["Book ID"]}>
-                <td>{book.fields["Book Name"]}</td>
-                <td>{book.fields["Status"]}</td>
-                <td onClick={deleteRecord}>
-                  <button>X</button></td>
-              </tr>
-            );
-          })}
+          <TableData books={books}/>
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
