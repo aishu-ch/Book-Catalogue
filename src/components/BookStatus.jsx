@@ -96,7 +96,8 @@ export default function BookStatus() {
   return bookData ? (
     <>
       <div>
-        <h2>Book Description</h2>
+        <h2>{bookData.title}</h2>
+        <h3></h3>
 
         <button
           name="Read"

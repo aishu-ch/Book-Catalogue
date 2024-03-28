@@ -11,7 +11,6 @@ body {
 .nav {
   display: flex;
   align-items: center;
-  width: 100vw;
   height: 50px;
   padding: 0 20px;
   background: black;
@@ -35,8 +34,8 @@ form {
 .search-term,
 .submit {
   padding: 10px;
-  margin: 0 5px;
-  margin-bottom: 30px;
+  margin: 0 auto;
+  margin-top: 5vh;
 }
 
 .button {
@@ -77,8 +76,10 @@ table {
   font-size: larger;
   display: grid;
   align-items: center;
-  width: 40vw;
+  width: 45vw;
   margin: 10vh auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 tr {
@@ -101,5 +102,10 @@ th {
 .delete {
   background-color: red;
   color: rgb(235, 205, 149);
+  font-weight: 600;
+}
+
+select {
+  font-size: medium;
   font-weight: 600;
 }
