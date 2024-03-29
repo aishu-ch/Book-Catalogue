@@ -7,7 +7,6 @@ const base = new Airtable({
   apiKey: process.env.REACT_APP_AIRTABLE_APIKEY,
 }).base(process.env.REACT_APP_AIRTABLE_BASEID);
 
-
 const handleClick = (title, bookId, history) => (e) => {
   // console.log(e.target.name)
   // console.log(title)
@@ -16,18 +15,41 @@ const handleClick = (title, bookId, history) => (e) => {
     .select({
       filterByFormula: `{Book ID}="${bookId}"`,
     })
-    .firstPage((err, records) => {
-      if (records.length !== 0) {
-        records.forEach((record) => {
-          console.log("Retrieved", record.get("Book Name"));
+    .firstPage(
+      (err, records) => {
+        if (records.length !== 0) {
+          records.forEach((record) => {
+            console.log("Retrieved", record.get("Book Name"));
 
-          base("books").update(
+            base("books").update(
+              [
+                {
+                  id: record.getId(),
+                  fields: {
+                    "Book Name": title,
+                    Status: e.target.name,
+                  },
+                },
+              ],
+              function (err, records) {
+                if (err) {
+                  console.error(err);
+                  return;
+                }
+                records.forEach(function (record) {
+                  console.log(record.get("Book Name"));
+                });
+              }
+            );
+          });
+        } else {
+          base("books").create(
             [
               {
-                id: record.getId(),
                 fields: {
                   "Book Name": title,
                   Status: e.target.name,
+                  "Book ID": bookId,
                 },
               },
             ],
@@ -37,43 +59,23 @@ const handleClick = (title, bookId, history) => (e) => {
                 return;
               }
               records.forEach(function (record) {
-                console.log(record.get("Book Name"));
+                console.log(record.getId());
               });
             }
           );
-        });
-      } else {
-        base("books").create(
-          [
-            {
-              fields: {
-                "Book Name": title,
-                Status: e.target.name,
-                "Book ID": bookId,
-              },
-            },
-          ],
-          function (err, records) {
-            if (err) {
-              console.error(err);
-              return;
-            }
-            records.forEach(function (record) {
-              console.log(record.getId());
-            });
-          }
-        );
-      }
-    },
-    setTimeout(() => {
-      history.push("/mylist")
-    }, 1000));
+        }
+      },
+      setTimeout(() => {
+        console.log("await function completed");
+        history.push("/mylist");
+      }, 2000)
+    );
 };
 
 export default function BookStatus() {
   const { bookId } = useParams();
   // console.log(bookId);
-  const history = useHistory()
+  const history = useHistory();
 
   const bookNameUrl = `https://openlibrary.org/works/${bookId}.json`;
 
@@ -122,7 +124,6 @@ export default function BookStatus() {
           className="status button"
           onClick={handleClick(bookData.title, bookId, history)}
         >
-
           Currently Reading
         </button>
       </div>
