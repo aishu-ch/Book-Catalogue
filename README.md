@@ -1,8 +1,8 @@
-**Personal Book Catalogue**
+# **Personal Book Catalogue**
 
 You can search for the books you read, to read and currently reading and update the status to get it on a list which you can refer and update later.
 
-**Technologies used**
+## **Technologies used:**
 
 - HTML
 - CSS
@@ -11,11 +11,16 @@ You can search for the books you read, to read and currently reading and update 
 - Git
 - Vercel
 
-**Deployment**
+### APIs used:
+- [Book Search API](https://openlibrary.org/dev/docs/api/search)
+- [Covers API](https://openlibrary.org/dev/docs/api/covers)
+
+## **Deployment:**
 
 You can find the app [here](book-catalogue-gold.vercel.app).
 
-**Screenshots of the App**
+
+## **Screenshots of the App:**
 
 ![image](https://github.com/aishu-ch/Book-Catalogue/assets/150415443/8bbf45f8-6983-492c-bc08-818799d91c63)
 
